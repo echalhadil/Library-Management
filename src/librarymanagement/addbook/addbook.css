@@ -1,0 +1,23 @@
+
+.primarybutton{
+    -fx-background-color: rgb(28, 184, 65);
+    -fx-text-fill:white;
+    -fx-cursor: hand;
+    -fx-border-radius:0;
+
+}
+
+.primarybutton:hover{
+    -fx-background-color: rgb(28, 184, 55);
+}
+
+.secoundarybutton{
+    -fx-background-color:rgb(66, 184, 221);
+    -fx-text-fill:white;
+    -fx-cursor: hand;
+    -fx-border-radius:0;
+}
+
+.secoundarybutton:hover{
+    -fx-background-color:rgb(66, 184, 241);
+    }
