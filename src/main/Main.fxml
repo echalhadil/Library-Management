@@ -26,7 +26,7 @@
                         <Font name="Lucida Fax Regular" size="11.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="94.0" prefWidth="183.0" text="Button" />
+                  <Button mnemonicParsing="false" prefHeight="94.0" prefWidth="183.0" />
                   <Button mnemonicParsing="false" prefHeight="93.0" prefWidth="183.0" text="Button" />
                </children>
             </VBox>

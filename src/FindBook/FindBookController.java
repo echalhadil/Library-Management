@@ -54,23 +54,9 @@ public class FindBookController implements Initializable {
                 book.affiche();
                 if(book.getAuthor() != null){
                     FXMLDocumentController c =  new FXMLDocumentController();
-                    loadWindow("/librarymanagement/addbook/FXMLDocument.fxml","edit");
-                   
-                    Parent root =new FXMLLoader(getClass().getResource("/librarymanagement/addbook/FXMLDocument.fxml")).load();
- 
-                    TextField title = (TextField) root.lookup("#title");
-                    TextField bid = (TextField) root.lookup("#id");
-
-                    title.setText(book.getTitle());
-                   bid.setText(book.getId());
-             /*this.author.setText(book.getAuthor());
-             this.price.setText( Double.toString(book.getPrice()));
-              */           
-                        Stage stage = new Stage(StageStyle.DECORATED);
-                        stage.setTitle("edit");
-                        stage.setScene(new Scene(root));
-                        stage.show();
-                    
+                    loadWindow("/librarymanagement/editbook/EditBook.fxml","edit",book);
+                  
+                                        
                 }
                
             
@@ -79,14 +65,25 @@ public class FindBookController implements Initializable {
     }
     
     
-    void loadWindow(String location,String title) throws IOException{
-        
+    void loadWindow(String location,String tit,Book book) throws IOException{
         Parent root =new FXMLLoader(getClass().getResource(location)).load();
-
+        initializeData(book,root);
         Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setTitle(title);
+        stage.setTitle(tit);
         stage.setScene(new Scene(root));
         stage.show();
+
+    }
+    
+    void initializeData(Book book,Parent root){
+        TextField title = (TextField) root.lookup("#title");
+        TextField bid = (TextField) root.lookup("#id");                    
+        TextField author = (TextField) root.lookup("#author");
+        TextField price = (TextField) root.lookup("#price");
+        title.setText(book.getTitle());
+        bid.setText(book.getId());
+        author.setText(book.getAuthor());
+        price.setText( Double.toString(book.getPrice()));         
 
     }
 
