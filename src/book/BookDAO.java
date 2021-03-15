@@ -1,18 +1,15 @@
 package book;
 
 
+import bookList.FXMLbookListController;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-
-
 
 public class BookDAO {
 	
@@ -50,51 +47,84 @@ public class BookDAO {
 	}
 
         
-        public void getBooks( ) throws ClassNotFoundException  {
-		
-            String SELECT_ALL_BOOKS = " SELECT * FROM books";
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try(
-                    Connection connection  = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?useSSL=false", "root", "");
-                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BOOKS)
-                )
-            {
-
-                                
+        public void getBooks( ObservableList<Book> list) {
+       
+              try {
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?useSSL=false", "root", "");
+                String SELECT_ALL_BOOKS = "SELECT * FROM books";
+                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BOOKS);
                 ResultSet rs = preparedStatement.executeQuery();
                 
-                System.out.print(rs.toString());
-                System.out.println(preparedStatement);
-
-                    while(rs.next()){
-                       //Retrieve by column name
-                        Book book  = new Book();
-                        book.setTitle(rs.getString("title"));
-                        book.setId(rs.getString("id"));
-                        book.setAuthor(rs.getString("author"));
-                        book.setPrice(rs.getDouble("price"));
-                        
-                        book.affiche();
-
-                         
-                     
-
-                    }
-                    rs.close();
-            }
-
-            catch(SQLException e ) {
-                    e.printStackTrace();
-
-            }
-
-
                 
-			
-		
-		
+
+                while(rs.next()){
+                    String title = rs.getString("title");
+                    String id = rs.getString("id");
+                    String author = rs.getString("author");
+                    double price = rs.getDouble("price");
+
+
+                    Book b = new Book();
+                    b.setTitle(title);
+                    b.setId(id);
+                    b.setAuthor(author);
+                    b.setPrice(price);
+                    list.add(b);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLbookListController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
 		
 	}
+         
+       
+        public Book getBook(String givenID ) throws ClassNotFoundException{
+            Book b = new Book();
+            String SELECT_STUDENT_SQL = " SELECT * FROM books WHERE id = '"+givenID+"'";
+             
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		try( 
+                    Connection connection  = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?useSSL=false", "root", "");
+                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_STUDENT_SQL);
+		)
+                {
+                    ResultSet rs = preparedStatement.executeQuery(SELECT_STUDENT_SQL);
+                    
+                    while(rs.next()){
+                        String title = rs.getString("title");
+                        String id = rs.getString("id");
+                        String author = rs.getString("author");
+                        double price = rs.getDouble("price");
 
+
+                        b.setTitle(title);
+                        b.setId(id);
+                        b.setAuthor(author);
+                        b.setPrice(price);
+
+                    }
+                    return b;
+
+                }
+		catch(SQLException e ) {
+			e.printStackTrace();
+			
+		}
+        return b;
+		
+        } 
+            
+          
+        
+        
+        public void updateBook(Book book,Book newbook){
+            
+        }
+        
+        public void deleteBook(){
+            
+        }
    
 }

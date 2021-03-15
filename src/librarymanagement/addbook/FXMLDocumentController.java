@@ -12,9 +12,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -117,6 +115,15 @@ public class FXMLDocumentController implements Initializable {
         Stage stage = (Stage) addbookPane.getScene().getWindow();
         stage.close();
         
+    }
+    
+    
+    public void initializeData(Book book){
+        this.title.setText(book.getTitle());
+             this.id.setText(book.getId());
+             this.author.setText(book.getAuthor());
+             this.price.setText( Double.toString(book.getPrice()));
+             
     }
     
 }

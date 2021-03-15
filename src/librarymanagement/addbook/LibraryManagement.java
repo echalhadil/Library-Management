@@ -5,6 +5,9 @@
  */
 package librarymanagement.addbook;
 
+import book.BookDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +28,13 @@ public class LibraryManagement extends Application {
         
         stage.setScene(scene);
         stage.show();
+        
+         BookDAO b = new BookDAO();
+        try {
+            System.out.println(b.getBook("dkda").getAuthor());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(LibraryManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -32,6 +42,10 @@ public class LibraryManagement extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        
+        
+       
+        
     }
     
 }
