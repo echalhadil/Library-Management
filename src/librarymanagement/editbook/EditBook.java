@@ -32,7 +32,7 @@ public class EditBook extends Application {
         
          BookDAO b = new BookDAO();
         try {
-            System.out.println(b.getBook("dkda").getAuthor());
+            System.out.println(b.getBook(1).getAuthor());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(EditBook.class.getName()).log(Level.SEVERE, null, ex);
         }

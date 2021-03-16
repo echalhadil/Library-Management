@@ -20,4 +20,8 @@
 
 .secoundarybutton:hover{
     -fx-background-color:rgb(66, 184, 241);
-    }
+}
+.dangerbutton{
+    -fx-background-color: red;
+    -fx-text-fill: white;
+}

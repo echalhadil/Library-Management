@@ -21,11 +21,13 @@ public class FXMLbookListController implements Initializable {
     @FXML
     private TableColumn<Book, String> bookTitle;
     @FXML
-    private TableColumn<Book, String> bookId;
+    private TableColumn<Book, Integer> bookId;
     @FXML
     private TableColumn<Book, String> bookAuthor;
     @FXML
     private TableColumn<Book, Double> bookPrice;
+    @FXML
+    private TableColumn<Book, String> bookCode;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -36,10 +38,11 @@ public class FXMLbookListController implements Initializable {
     } 
     
     private void initCol(){
+        bookId.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
         bookTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
-        bookId.setCellValueFactory(new PropertyValueFactory<Book, String>("id"));
         bookAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
-        bookPrice.setCellValueFactory(new PropertyValueFactory<Book, Double>("price"));        
+        bookPrice.setCellValueFactory(new PropertyValueFactory<Book, Double>("price"));
+        bookCode.setCellValueFactory(new PropertyValueFactory<Book, String>("codebare"));        
     }
 
     

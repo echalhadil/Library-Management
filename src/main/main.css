@@ -2,6 +2,12 @@
  * Empty Stylesheet file.
  */
 
-.mainFxmlClass {
+.findbutton{
+    
+    -fx-background-color: orange;
+    
+}
 
+.addbutton{
+    -fx-background-color:#5cb85c;
 }

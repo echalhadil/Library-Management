@@ -27,9 +27,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField title;
     @FXML
-    private TextField id;
-    @FXML
     private TextField author;
+    @FXML
+    private TextField codebare;
     @FXML
     private TextField price;
     @FXML
@@ -48,6 +48,7 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane addbookPane;
     
     
+    
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
   
@@ -61,7 +62,7 @@ public class FXMLDocumentController implements Initializable {
         else
              this.titleError.setText("");
         
-        if(this.id.getText().trim().isEmpty())
+        if(this.codebare.getText().trim().isEmpty())
             this.idError.setText("id is required");
         else     
             this.idError.setText("");
@@ -76,7 +77,7 @@ public class FXMLDocumentController implements Initializable {
         else
             this.priceError.setText("");
         
-        if(!this.title.getText().trim().isEmpty() && !this.id.getText().trim().isEmpty() && !this.author.getText().trim().isEmpty() && !this.price.getText().trim().isEmpty())
+        if(!this.title.getText().trim().isEmpty() && !this.codebare.getText().trim().isEmpty() && !this.author.getText().trim().isEmpty() && !this.price.getText().trim().isEmpty())
         {   
              this.titleError.setText("");
              this.idError.setText("");
@@ -85,7 +86,7 @@ public class FXMLDocumentController implements Initializable {
              
              Book book = new Book();
              book.setTitle( this.title.getText() );
-             book.setId(this.id.getText());
+             book.setCodebare(this.codebare.getText());
              book.setAuthor(this.author.getText());
              book.setPrice(Double.parseDouble(this.price.getText()));
              BookDAO b = new BookDAO();
@@ -94,7 +95,7 @@ public class FXMLDocumentController implements Initializable {
              this.message.setText("saved !");
              
              this.title.setText("");
-             this.id.setText("");
+             this.codebare.setText("");
              this.author.setText("");
              this.price.setText("");
              
@@ -120,9 +121,9 @@ public class FXMLDocumentController implements Initializable {
     
     public void initializeData(Book book){
         this.title.setText(book.getTitle());
-             this.id.setText(book.getId());
-             this.author.setText(book.getAuthor());
-             this.price.setText( Double.toString(book.getPrice()));
+        this.codebare.setText(book.getCodebare());
+        this.author.setText(book.getAuthor());
+        this.price.setText( Double.toString(book.getPrice()));
              
     }
     

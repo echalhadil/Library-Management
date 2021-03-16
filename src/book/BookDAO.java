@@ -15,7 +15,7 @@ public class BookDAO {
 	
 	public int insertBook(Book book) throws ClassNotFoundException {
 		
-		String INSERT_STUDENTS_SQL = " INSERT INTO books VALUES (?,?,?,?);";
+		String INSERT_STUDENTS_SQL = " INSERT INTO books(title, codebare, author, price) VALUES (?,?,?,?);";
 		int result = 0;
 		
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -26,7 +26,7 @@ public class BookDAO {
 			){
                                
 				preparedStatement.setString(1,book.getTitle());
-				preparedStatement.setString(2,book.getId());
+				preparedStatement.setString(2,book.getCodebare());
 				preparedStatement.setString(3,book.getAuthor());
 				preparedStatement.setDouble(4,book.getPrice());
 				
@@ -58,8 +58,9 @@ public class BookDAO {
                 
 
                 while(rs.next()){
+                    int id = rs.getInt("id");
                     String title = rs.getString("title");
-                    String id = rs.getString("id");
+                    String codebare = rs.getString("codebare");
                     String author = rs.getString("author");
                     double price = rs.getDouble("price");
 
@@ -67,9 +68,11 @@ public class BookDAO {
                     Book b = new Book();
                     b.setTitle(title);
                     b.setId(id);
+                    b.setCodebare(codebare);
                     b.setAuthor(author);
                     b.setPrice(price);
                     list.add(b);
+                    
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(FXMLbookListController.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,7 +82,7 @@ public class BookDAO {
 	}
          
        
-        public Book getBook(String givenID ) throws ClassNotFoundException{
+        public Book getBook(int givenID ) throws ClassNotFoundException{
             Book b = new Book();
             String SELECT_STUDENT_SQL = " SELECT * FROM books WHERE id = '"+givenID+"'";
              
@@ -92,15 +95,16 @@ public class BookDAO {
                 {
                     ResultSet rs = preparedStatement.executeQuery(SELECT_STUDENT_SQL);
                     
-                    while(rs.next()){
+                    while(rs.next()){   
+                        int id = rs.getInt("id");
                         String title = rs.getString("title");
-                        String id = rs.getString("id");
+                        String codebare = rs.getString("codebare");
                         String author = rs.getString("author");
                         double price = rs.getDouble("price");
 
-
-                        b.setTitle(title);
                         b.setId(id);
+                        b.setTitle(title);
+                        b.setCodebare(codebare);
                         b.setAuthor(author);
                         b.setPrice(price);
 
@@ -119,12 +123,37 @@ public class BookDAO {
           
         
         
-        public void updateBook(Book book,Book newbook){
+        public void updateBook(String oldBookId,Book newBook) throws SQLException{
+            
+            int id = Integer.parseInt(oldBookId);
+            System.out.print("this is the id :: "+ id);
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?useSSL=false", "root", "");
+            String UPDATE_SELECTED_BOOK = "UPDATE books SET title=?,codebare=?,author=?,price=? WHERE id=? ;";
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SELECTED_BOOK);
+            preparedStatement.setString(1, newBook.getTitle());
+            preparedStatement.setString(2, newBook.getCodebare());
+            preparedStatement.setString(3, newBook.getAuthor());
+            preparedStatement.setDouble(4, newBook.getPrice());
+            preparedStatement.setInt(5, id);
+            
+            System.out.println(preparedStatement);
+            int rs = preparedStatement.executeUpdate();
+            
+            
             
         }
         
-        public void deleteBook(){
+        public int deleteBook(String givenId) throws SQLException{
             
+            int id = Integer.parseInt(givenId);            
+            System.out.print("this is the id :: "+ id);
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?useSSL=false", "root", "");
+            String UPDATE_SELECTED_BOOK = "DELETE FROM books WHERE id=? ;";
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SELECTED_BOOK);
+            preparedStatement.setInt(1, id);
+            
+            System.out.println(preparedStatement);
+            return preparedStatement.executeUpdate();
         }
    
 }

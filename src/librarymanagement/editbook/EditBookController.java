@@ -5,14 +5,20 @@
  */
 package librarymanagement.editbook;
 
-import librarymanagement.addbook.*;
 import book.Book;
 import book.BookDAO;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -28,8 +34,6 @@ public class EditBookController implements Initializable {
     @FXML
     private TextField title;
     @FXML
-    private TextField id;
-    @FXML
     private TextField author;
     @FXML
     private TextField price;
@@ -42,28 +46,47 @@ public class EditBookController implements Initializable {
     @FXML
     private Label priceError;
     
+    public Book oldBook  = new Book();
     
         @FXML
     private Label message;
     @FXML
-    private AnchorPane addbookPane;
+    private AnchorPane editbookPane;
+    @FXML
+    private TextField codebare;
+    @FXML
+    private TextField id;
     
     
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-  
+    
+    
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+          //   this.oldBook.setTitle(this.title.getText());             
+        //    this.oldBook.setId(this.id.getText());
+            // this.oldBook.setAuthor(this.author.getText());
+            // this.oldBook.setPrice(0.0);
+    
+    
+    
     }
     
+    
+    
+    
+    
     @FXML
-    private void saveBook(ActionEvent event) throws ClassNotFoundException  {
+    private void editBook(ActionEvent event) throws ClassNotFoundException  {
             
         if(this.title.getText().trim().isEmpty())
             this.titleError.setText("name is required");
         else
              this.titleError.setText("");
         
-        if(this.id.getText().trim().isEmpty())
-            this.idError.setText("id is required");
+        if(this.codebare.getText().trim().isEmpty())
+            this.idError.setText("code bare is required");
         else     
             this.idError.setText("");
         
@@ -77,54 +100,106 @@ public class EditBookController implements Initializable {
         else
             this.priceError.setText("");
         
-        if(!this.title.getText().trim().isEmpty() && !this.id.getText().trim().isEmpty() && !this.author.getText().trim().isEmpty() && !this.price.getText().trim().isEmpty())
+        if(!this.title.getText().trim().isEmpty() && !this.codebare.getText().trim().isEmpty() && !this.author.getText().trim().isEmpty() && !this.price.getText().trim().isEmpty())
         {   
-             this.titleError.setText("");
-             this.idError.setText("");
-             this.authorError.setText("");
-             this.priceError.setText("");
+            this.titleError.setText("");
+            this.idError.setText("");
+            this.authorError.setText("");
+            this.priceError.setText("");
+
+            Book newBook = new Book();
+            newBook.setTitle( this.title.getText() );
+            newBook.setCodebare(this.codebare.getText());
+            newBook.setAuthor(this.author.getText());
+            newBook.setPrice(Double.parseDouble(this.price.getText()));
+
+            
+                BookDAO b = new BookDAO();
+                try {
+                    b.updateBook(this.id.getText(), newBook);
+                  
+                } catch (SQLException ex) {
+                    Logger.getLogger(EditBookController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
+                  this.oldBook.affiche();
+                
+                
+                
+                this.message.setText("edited !");
+                newBook.affiche();
              
-             Book book = new Book();
-             book.setTitle( this.title.getText() );
-             book.setId(this.id.getText());
-             book.setAuthor(this.author.getText());
-             book.setPrice(Double.parseDouble(this.price.getText()));
-             BookDAO b = new BookDAO();
-             b.insertBook(book);
-                   
-             this.message.setText("saved !");
+            
              
-             this.title.setText("");
-             this.id.setText("");
-             this.author.setText("");
-             this.price.setText("");
+            
+        
              
-             book.affiche();
         }
     }
     
 
     
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+ 
 
     @FXML
     private void cancel(ActionEvent event) {
         
-        Stage stage = (Stage) addbookPane.getScene().getWindow();
+        Stage stage = (Stage) editbookPane.getScene().getWindow();
         stage.close();
         
     }
     
     
     public void initializeData(Book book){
-        this.title.setText(book.getTitle());
-             this.id.setText(book.getId());
-             this.author.setText(book.getAuthor());
-             this.price.setText( Double.toString(book.getPrice()));
+          
+             book.setTitle(this.title.getText());             
+             book.setCodebare(this.codebare.getText());
+             book.setAuthor(this.author.getText());
+             book.setPrice(0.0);
+
              
     }
+
+    @FXML
+    private void deletebook(ActionEvent event) {
+        String givenId = this.id.getText();
+        BookDAO b = new BookDAO();
+        try {
+            
+            Alert alertConfirmation = new Alert(AlertType.CONFIRMATION);
+            alertConfirmation.setTitle("Delete Confirmation");
+            alertConfirmation.setHeaderText(" Confirm !");
+            alertConfirmation.setContentText("Are you ok with this?");
+
+            Optional<ButtonType> result = alertConfirmation.showAndWait();
+            if (result.get() == ButtonType.OK){
+                if(b.deleteBook(givenId)!=0){
+                    Alert alertSuccess = new Alert(AlertType.INFORMATION);
+                    alertSuccess.setTitle("Information Dialog");
+                    alertSuccess.setHeaderText(null);
+                    alertSuccess.setContentText("your book deleted Successfuly!");
+                    alertSuccess.showAndWait();
+                    Stage stage = (Stage) editbookPane.getScene().getWindow();
+                    stage.close();
+                }
+                
+
+            }
+            
+            
+            
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(EditBookController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    
+
+  
     
 }
