@@ -5,17 +5,25 @@
  */
 package librarymanagement.addbook;
 
+import EditMember.EditMemberController;
 import book.Book;
 import book.BookDAO;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 /**
@@ -113,8 +121,25 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void cancel(ActionEvent event) {
         
-        Stage stage = (Stage) addbookPane.getScene().getWindow();
+        
+        Parent root = null;
+        try {
+            root = new FXMLLoader(getClass().getResource("/main/Main.fxml")).load();
+            Stage main = new Stage(StageStyle.DECORATED);
+            main.setTitle("HOME");
+            main.setScene(new Scene(root));
+            main.show();
+        } catch (IOException ex) {
+            Logger.getLogger(EditMemberController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+          
+          Stage stage = (Stage) addbookPane.getScene().getWindow();
         stage.close();
+
+            
+        }
+
         
     }
     

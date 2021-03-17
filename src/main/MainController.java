@@ -5,8 +5,10 @@
  */
 package main;
 
+import book.BookDAO;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -24,9 +26,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import member.MemberDAO;
 
 /**
  * FXML Controller class
@@ -37,6 +41,12 @@ public class MainController implements Initializable {
 
     @FXML
     private Label date;
+    @FXML
+    private Label numberOfBooks;
+    @FXML
+    private Label numberOfMembers;
+    @FXML
+    private AnchorPane mainPane;
 
     /**
      * Initializes the controller class.
@@ -45,6 +55,16 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
+        
+        
+        BookDAO b= new BookDAO();
+        MemberDAO m = new MemberDAO();
+        try {
+            this.numberOfBooks.setText(""+b.countBooks()+"");
+            this.numberOfMembers.setText(""+m.countMembers()+"");
+        } catch (SQLException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
  
@@ -63,6 +83,7 @@ public class MainController implements Initializable {
     @FXML
     private void openAddBook(ActionEvent event) throws IOException {    
        loadWindow("/librarymanagement/addbook/FXMLDocument.fxml","add Book"); 
+       closePane();
     }
     
     
@@ -90,5 +111,32 @@ public class MainController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void openAllMembers(ActionEvent event) throws IOException {
+        
+          loadWindow("/memberList/MemberList.fxml","all Members"); 
+    }
+
+    @FXML
+    private void openAddMember(ActionEvent event) throws IOException {
+                loadWindow("/addMember/AddMember.fxml","Add Member");
+                closePane();
+    }
+
+    @FXML
+    private void findMember(ActionEvent event) throws IOException {
+         
+            loadWindow("/FindMember/FindMember.fxml","find Member");
+           
+        
+    }
+    
+    
+    public void closePane(){
+        
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.close();
     }
 }

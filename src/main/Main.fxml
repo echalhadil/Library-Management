@@ -6,71 +6,138 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MainController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="791.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MainController">
    <children>
-      <BorderPane prefHeight="422.0" prefWidth="874.0" style="-fx-background-color: #F0F7F4;">
-         <right>
-            <VBox prefHeight="332.0" prefWidth="183.0" style="-fx-border-width: 0px 0px 0px 2px; -fx-border-color: black;" BorderPane.alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#openAllBooks" prefHeight="97.0" prefWidth="183.0" style="-fx-background-color: white;" wrapText="true">
-                     <font>
-                        <Font name="Arial" size="27.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="https://img.icons8.com/ios-glyphs/90/000000/books.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin></Button>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#openAddBook" prefHeight="51.0" prefWidth="185.0" style="-fx-cursor: HAND;" styleClass="addbutton" stylesheets="@main.css" text="Add" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="Lucida Fax Regular" size="11.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                     </VBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="47.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="https://www.iconsdb.com/icons/download/white/plus-64.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#findBook" prefHeight="52.0" prefWidth="183.0" style="-fx-cursor: HAND;" stylesheets="@main.css" text="Find" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="Lucida Fax Regular" size="11.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                     </VBox.margin>
-                     <styleClass>
-                        <String fx:value="findbutton" />
-                        <String fx:value="findbutton" />
-                     </styleClass>
-                  </Button>
-               </children>
-            </VBox>
-         </right>
-         <left>
-            <Label fx:id="date" prefHeight="32.0" prefWidth="287.0" text="Label" BorderPane.alignment="TOP_LEFT">
-               <BorderPane.margin>
-                  <Insets left="10.0" top="10.0" />
-               </BorderPane.margin>
+      <VBox alignment="TOP_RIGHT" layoutX="589.0" prefHeight="501.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="589.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#openAllBooks" prefHeight="97.0" prefWidth="183.0" style="-fx-background-color: white; -fx-cursor: HAND;" text="books" wrapText="true">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="Roboto" size="21.0" />
                </font>
-            </Label>
-         </left>
-      </BorderPane>
+               <graphic>
+                  <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-livres-90%20(1).png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#openAddBook" prefHeight="51.0" prefWidth="185.0" style="-fx-cursor: HAND;" styleClass="addbutton" stylesheets="@main.css" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Lucida Fax Regular" size="11.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-plus-90%20(1).png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#findBook" prefHeight="52.0" prefWidth="183.0" style="-fx-cursor: HAND;" stylesheets="@main.css" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Lucida Fax Regular" size="11.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="findbutton" />
+                  <String fx:value="findbutton" />
+               </styleClass>
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-chercher-90.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openAllMembers" prefHeight="93.0" prefWidth="183.0" style="-fx-background-color: white; -fx-cursor: HAND;" text="members">
+               <graphic>
+                  <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-groupe-premier-plan-sélectionné-90.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Roboto Bold" size="21.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#openAddMember" prefHeight="51.0" prefWidth="185.0" style="-fx-cursor: HAND;" styleClass="addbutton" stylesheets="@main.css" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Lucida Fax Regular" size="11.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-plus-90%20(1).png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#findMember" prefHeight="52.0" prefWidth="183.0" style="-fx-cursor: HAND;" stylesheets="@main.css" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Lucida Fax Regular" size="11.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="findbutton" />
+                  <String fx:value="findbutton" />
+               </styleClass>
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-chercher-90.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <Label fx:id="date" layoutX="6.0" layoutY="6.0" prefHeight="32.0" prefWidth="202.0" text="Label">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="127.0" prefHeight="34.0" prefWidth="185.0" text="Number of Books">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="numberOfBooks" alignment="CENTER" contentDisplay="CENTER" layoutX="104.0" layoutY="161.0" prefHeight="82.0" prefWidth="33.0" text="0">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="293.0" layoutY="127.0" prefHeight="34.0" prefWidth="228.0" text="Number of Members">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="numberOfMembers" alignment="CENTER" contentDisplay="CENTER" layoutX="369.0" layoutY="161.0" prefHeight="82.0" prefWidth="33.0" text="0">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
    </children>
-</StackPane>
+</AnchorPane>

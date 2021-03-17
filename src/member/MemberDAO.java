@@ -1,5 +1,9 @@
-package book;
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package member;
 
 import bookList.FXMLbookListController;
 import java.sql.Connection;
@@ -11,24 +15,29 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 
-public class BookDAO {
-	
-	public int insertBook(Book book) throws ClassNotFoundException {
+/**
+ *
+ * @author hp
+ */
+public class MemberDAO {
+    
+    
+    
+    public int insertMember(Member member) throws ClassNotFoundException {
 		
-		String INSERT_STUDENTS_SQL = " INSERT INTO books(title, codebare, author, price) VALUES (?,?,?,?);";
+		String INSERT_MEMBER_SQL = " INSERT INTO members(fname, lname, cin) VALUES (?,?,?);";
 		int result = 0;
 		
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		
 		try( 
 				Connection connection  = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?useSSL=false", "root", "");
-				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STUDENTS_SQL)
+				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_MEMBER_SQL)
 			){
                                
-				preparedStatement.setString(1,book.getTitle());
-				preparedStatement.setString(2,book.getCodebare());
-				preparedStatement.setString(3,book.getAuthor());
-				preparedStatement.setDouble(4,book.getPrice());
+				preparedStatement.setString(1,member.getFname());
+				preparedStatement.setString(2,member.getLname());
+				preparedStatement.setString(3,member.getCin());
 				
 				System.out.println(preparedStatement);
 				
@@ -39,19 +48,18 @@ public class BookDAO {
 			e.printStackTrace();
 			
 		}
-			
-		
-		
+
 		return result;
 		
 	}
 
         
-        public void getBooks( ObservableList<Book> list) {
+    
+        public void getMembers( ObservableList<Member> list) {
        
               try {
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?useSSL=false", "root", "");
-                String SELECT_ALL_BOOKS = "SELECT * FROM books";
+                String SELECT_ALL_BOOKS = "SELECT * FROM members";
                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BOOKS);
                 ResultSet rs = preparedStatement.executeQuery();
                 
@@ -59,19 +67,18 @@ public class BookDAO {
 
                 while(rs.next()){
                     int id = rs.getInt("id");
-                    String title = rs.getString("title");
-                    String codebare = rs.getString("codebare");
-                    String author = rs.getString("author");
-                    double price = rs.getDouble("price");
+                    String fname = rs.getString("fname");
+                    String lname = rs.getString("lname");
+                    String cin = rs.getString("cin");
+                   
 
-
-                    Book b = new Book();
-                    b.setTitle(title);
-                    b.setId(id);
-                    b.setCodebare(codebare);
-                    b.setAuthor(author);
-                    b.setPrice(price);
-                    list.add(b);
+                    Member m = new Member();
+                    m.setId(id);
+                    m.setFname(fname);
+                    m.setLname(lname);
+                    m.setCin(cin);
+                            
+                    list.add(m);
                     
                 }
             } catch (SQLException ex) {
@@ -80,12 +87,10 @@ public class BookDAO {
 
 		
 	}
-         
-       
-        public Book getBook(int givenID ) throws ClassNotFoundException{
-            Book b = new Book();
-            String SELECT_STUDENT_SQL = " SELECT * FROM books WHERE id = '"+givenID+"'";
-             
+                      
+        public Member getMember(int givenID ) throws ClassNotFoundException{
+            String SELECT_STUDENT_SQL = " SELECT * FROM members WHERE id = '"+givenID+"'";
+            Member m = new Member();
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		
 		try( 
@@ -97,44 +102,39 @@ public class BookDAO {
                     
                     while(rs.next()){   
                         int id = rs.getInt("id");
-                        String title = rs.getString("title");
-                        String codebare = rs.getString("codebare");
-                        String author = rs.getString("author");
-                        double price = rs.getDouble("price");
+                        String fname = rs.getString("fname");
+                        String lname = rs.getString("lname");
+                        String cin = rs.getString("cin");
 
-                        b.setId(id);
-                        b.setTitle(title);
-                        b.setCodebare(codebare);
-                        b.setAuthor(author);
-                        b.setPrice(price);
 
+                        
+                        m.setId(id);
+                        m.setFname(fname);
+                        m.setLname(lname);
+                        m.setCin(cin);
                     }
-                    return b;
+                    return m;
 
                 }
 		catch(SQLException e ) {
 			e.printStackTrace();
 			
 		}
-        return b;
+        return m;
 		
         } 
-            
-          
         
-        
-        public void updateBook(String oldBookId,Book newBook) throws SQLException{
+        public void updateMember(String oldMemberId,Member newMember) throws SQLException{
             
-            int id = Integer.parseInt(oldBookId);
+            int id = Integer.parseInt(oldMemberId);
             System.out.print("this is the id :: "+ id);
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?useSSL=false", "root", "");
-            String UPDATE_SELECTED_BOOK = "UPDATE books SET title=?,codebare=?,author=?,price=? WHERE id=? ;";
+            String UPDATE_SELECTED_BOOK = "UPDATE members SET fname=?,lname=?,cin=? WHERE id= ? ;";
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SELECTED_BOOK);
-            preparedStatement.setString(1, newBook.getTitle());
-            preparedStatement.setString(2, newBook.getCodebare());
-            preparedStatement.setString(3, newBook.getAuthor());
-            preparedStatement.setDouble(4, newBook.getPrice());
-            preparedStatement.setInt(5, id);
+            preparedStatement.setString(1, newMember.getFname());
+            preparedStatement.setString(2, newMember.getLname());
+            preparedStatement.setString(3, newMember.getCin());
+            preparedStatement.setInt(4, id);
             
             System.out.println(preparedStatement);
             int rs = preparedStatement.executeUpdate();
@@ -143,12 +143,12 @@ public class BookDAO {
             
         }
         
-        public int deleteBook(String givenId) throws SQLException{
+        public int deleteMember(String givenId) throws SQLException{
             
             int id = Integer.parseInt(givenId);            
             System.out.print("this is the id :: "+ id);
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?useSSL=false", "root", "");
-            String UPDATE_SELECTED_BOOK = "DELETE FROM books WHERE id=? ;";
+            String UPDATE_SELECTED_BOOK = "DELETE FROM members WHERE id=? ;";
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SELECTED_BOOK);
             preparedStatement.setInt(1, id);
             
@@ -156,25 +156,21 @@ public class BookDAO {
             return preparedStatement.executeUpdate();
         }
         
-         public int countBooks() throws SQLException{
+        
+         public int countMembers() throws SQLException{
             
            int i = 0;
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?useSSL=false", "root", "");
-            String UPDATE_SELECTED_BOOK = "SELECT * FROM books ;";
+            String UPDATE_SELECTED_BOOK = "SELECT * FROM members ;";
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SELECTED_BOOK);
             
             System.out.println(preparedStatement);
              ResultSet rs = preparedStatement.executeQuery();
              
-             System.out.print("result sssss : :"+rs.toString());
-             while(rs.next()){
+                     while(rs.next()){
                  i++;
              }
              return i;
                 
         }
-        
-        
-       
-   
 }
