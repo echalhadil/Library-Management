@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -14,28 +17,47 @@
          <right>
             <VBox prefHeight="332.0" prefWidth="183.0" style="-fx-border-width: 0px 0px 0px 2px; -fx-border-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#openAllBooks" prefHeight="97.0" prefWidth="183.0" text="Books">
+                  <Button mnemonicParsing="false" onAction="#openAllBooks" prefHeight="97.0" prefWidth="183.0" style="-fx-background-color: white;" wrapText="true">
                      <font>
-                        <Font name="Gabriola" size="27.0" />
-                     </font></Button>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#openAddBook" prefHeight="51.0" prefWidth="185.0" style="-fx-background-color: #06d6a0; -fx-cursor: HAND;" text="Add" textAlignment="CENTER" textFill="WHITE">
+                        <Font name="Arial" size="27.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="https://img.icons8.com/ios-glyphs/90/000000/books.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#openAddBook" prefHeight="51.0" prefWidth="185.0" style="-fx-cursor: HAND;" styleClass="addbutton" stylesheets="@main.css" text="Add" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Lucida Fax Regular" size="11.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="47.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="https://www.iconsdb.com/icons/download/white/plus-64.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#findBook" prefHeight="52.0" prefWidth="183.0" style="-fx-background-color: #06d6a0; -fx-cursor: HAND;" text="Find" textAlignment="CENTER" textFill="WHITE">
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#findBook" prefHeight="52.0" prefWidth="183.0" style="-fx-cursor: HAND;" stylesheets="@main.css" text="Find" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Lucida Fax Regular" size="11.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="findbutton" />
+                        <String fx:value="findbutton" />
+                     </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="94.0" prefWidth="183.0" />
-                  <Button mnemonicParsing="false" prefHeight="93.0" prefWidth="183.0" text="Button" />
                </children>
             </VBox>
          </right>
