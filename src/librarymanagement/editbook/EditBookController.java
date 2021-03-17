@@ -46,8 +46,7 @@ public class EditBookController implements Initializable {
     @FXML
     private Label priceError;
     
-    public Book oldBook  = new Book();
-    
+
         @FXML
     private Label message;
     @FXML
@@ -64,19 +63,8 @@ public class EditBookController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-          //   this.oldBook.setTitle(this.title.getText());             
-        //    this.oldBook.setId(this.id.getText());
-            // this.oldBook.setAuthor(this.author.getText());
-            // this.oldBook.setPrice(0.0);
-    
-    
-    
     }
-    
-    
-    
-    
-    
+   
     @FXML
     private void editBook(ActionEvent event) throws ClassNotFoundException  {
             
@@ -120,45 +108,25 @@ public class EditBookController implements Initializable {
                   
                 } catch (SQLException ex) {
                     Logger.getLogger(EditBookController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                
-                  this.oldBook.affiche();
-                
-                
-                
+                }              
                 this.message.setText("edited !");
                 newBook.affiche();
-             
-            
-             
-            
-        
-             
+         
         }
     }
     
-
-    
- 
-
     @FXML
     private void cancel(ActionEvent event) {
-        
         Stage stage = (Stage) editbookPane.getScene().getWindow();
         stage.close();
-        
     }
     
     
     public void initializeData(Book book){
-          
-             book.setTitle(this.title.getText());             
-             book.setCodebare(this.codebare.getText());
-             book.setAuthor(this.author.getText());
-             book.setPrice(0.0);
-
-             
+        book.setTitle(this.title.getText());             
+        book.setCodebare(this.codebare.getText());
+        book.setAuthor(this.author.getText());
+        book.setPrice(0.0);     
     }
 
     @FXML
@@ -166,7 +134,6 @@ public class EditBookController implements Initializable {
         String givenId = this.id.getText();
         BookDAO b = new BookDAO();
         try {
-            
             Alert alertConfirmation = new Alert(AlertType.CONFIRMATION);
             alertConfirmation.setTitle("Delete Confirmation");
             alertConfirmation.setHeaderText(" Confirm !");
@@ -180,18 +147,12 @@ public class EditBookController implements Initializable {
                     alertSuccess.setHeaderText(null);
                     alertSuccess.setContentText("your book deleted Successfuly!");
                     alertSuccess.showAndWait();
-                    Stage stage = (Stage) editbookPane.getScene().getWindow();
-                    stage.close();
+                    Stage editstage = (Stage) editbookPane.getScene().getWindow();
+                    editstage.close();
                 }
                 
-
             }
-            
-            
-            
-            
-            
-            
+             
         } catch (SQLException ex) {
             Logger.getLogger(EditBookController.class.getName()).log(Level.SEVERE, null, ex);
         }

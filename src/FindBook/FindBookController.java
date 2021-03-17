@@ -48,18 +48,15 @@ public class FindBookController implements Initializable {
     @FXML
     private void findBook(ActionEvent event) throws ClassNotFoundException, IOException {
         if(!givenID.getText().trim().isEmpty())
-        { 
+        {             
             BookDAO b = new BookDAO();
-            int id = Integer.parseInt(givenID.getText()) ;
-  
+            int id = Integer.parseInt(givenID.getText());
             Book book = b.getBook(id);
-            this.message.setText("No Results."); 
-                       
+            this.message.setText("No Results.");        
             if(!Objects.isNull(book)){
-             loadWindow("/librarymanagement/editbook/EditBook.fxml","edit",book);
+                loadWindow("/librarymanagement/editbook/EditBook.fxml","edit",book);
                 this.message.setText("");
             }
-   
         }
         else 
             

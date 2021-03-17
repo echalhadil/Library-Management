@@ -31,8 +31,7 @@ public class Book {
     public double getPrice(){
         return this.price.get();
     }
-    
-    
+     
     
     public void setTitle(String title){
         this.title = new SimpleStringProperty (title);
@@ -50,29 +49,13 @@ public class Book {
         this.price = new SimpleDoubleProperty (price);
     }
     
-   public boolean isNull(){
-   
-    SimpleStringProperty title,id,author;
-    SimpleDoubleProperty price;
-    if(this.title.get()==null && this.author.get()==null && this.id.get()==0 && this.codebare.get() == null &&this.price.get()==0.0)
-        return true;
-    return false;
-       
-   }
     
     public void affiche(){
 
         System.out.println(id +" "+codebare+" "+title +" "+author +" "+price);
     }
     
-    
-    
-       
-    public boolean isEquial(Book b){
-        if(this.title.get() == b.title.get() && this.id.get() == b.id.get() && this.author.get() == b.author.get() && this.price.get() == b.price.get())
-            return true;
-        return false;
-    }
+  
 }
 
 
